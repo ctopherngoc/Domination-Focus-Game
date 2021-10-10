@@ -1,9 +1,4 @@
-# Author: Christopher Nguyen
-# CS162: Introduction to Computer Programming II
-# Date: 23NOV2020
-# Portfolio Project
-# Description: The program simulates the focus game as a 6x6 board.
-
+# The program simulates the focus game as a 6x6 board.
 class FocusGame:
     def __init__(self, player1, player2):
         """
