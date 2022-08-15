@@ -17,41 +17,13 @@ class FocusGame:
         # boolean win condition
         self._win = 0
 
-        # creates 8x8 board
         self._main_board = [[] for x in range(6)]
-        while counter <= 5:
-            for row in self._main_board:
-                self._main_board[counter] = [[""] for y in range(6)]
-                counter += 1
-        self.fillBoard()
 
-    def fillBoard(self):
-        """
-        Fills the board with player pieces.
-        """
-        # set initial conditions for while loop
-        row = 0
-        column = 0
-        red_counter = 0
-        green_counter = 0
-
-        # populates board with green and red markers
-        while row < 6:
-            while column < 6:
-                if red_counter < 2:
-                    self._main_board[row][column][0] = "R"
-                    red_counter += 1
-                    column += 1
-
-                elif green_counter < 2:
-                    self._main_board[row][column][0] = "G"
-                    green_counter += 1
-                    column += 1
-                else:
-                    red_counter = 0
-                    green_counter = 0
-            row += 1
-            column = 0
+        for y in range(6):
+            if y % 2 == 0:
+                self._main_board[y] = [['G'], ['G'], ['R'], ['R'], ['G'], ['G']]
+            else:
+                self._main_board[y] = [['R'], ['R'], ['G'], ['G'], ['R'], ['R']]
 
     def printBoard(self):
         """
