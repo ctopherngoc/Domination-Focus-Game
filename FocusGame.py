@@ -18,9 +18,9 @@ class FocusGame:
 
         for y in range(6):
             if y % 2 == 0:
-                self._main_board[y] = [['G'], ['G'], ['R'], ['R'], ['G'], ['G']]
-            else:
                 self._main_board[y] = [['R'], ['R'], ['G'], ['G'], ['R'], ['R']]
+            else:
+                self._main_board[y] = [['G'], ['G'], ['R'], ['R'], ['G'], ['G']]
 
     def printBoard(self):
         """
@@ -72,12 +72,12 @@ class FocusGame:
             return False
 
         # x axis movement
-        if abs(end[0] - start_point[0]) == piece and end_point[1] == start_point[1]:
+        if abs(end[0] - start[0]) == piece and end[1] == start[1]:
             if start_point[-1] == self._dict[player]["piece"]:
                 return True
 
         # y axis movement
-        elif abs(end[1] - start_point[1]) == piece and end_point[0] == start_point[0]:
+        elif abs(end[1] - start[1]) == piece and end[0] == start[0]:
             if start_point[-1] == self._dict[player]["piece"]:
                 return True
 
