@@ -7,7 +7,7 @@ class FocusGame:
 
         self._player1 = player1
         self._player2 = player2
-        self._win = 0
+        self._win = False
         self._turncounter = 1  # player1 moves on odds, player2 moves on evens
 
         self._dict = {
@@ -16,15 +16,15 @@ class FocusGame:
 
         self._main_board = [[] for x in range(6)]
 
-        for y in range(6):
-            if y % 2 == 0:
-                self._main_board[y] = [['R'], ['R'], ['G'], ['G'], ['R'], ['R']]
+        for row in range(6):
+            if row % 2 == 0:
+                self._main_board[row] = [['R'], ['R'], ['G'], ['G'], ['R'], ['R']]
             else:
-                self._main_board[y] = [['G'], ['G'], ['R'], ['R'], ['G'], ['G']]
+                self._main_board[row] = [['G'], ['G'], ['R'], ['R'], ['G'], ['G']]
 
     def printBoard(self):
         """
-        helper function: prints board by rows.
+        helper function: displays current board state in terminal.
         """
         for row in self._main_board:
             print(row)
@@ -72,12 +72,12 @@ class FocusGame:
             return False
 
         # x axis movement
-        if abs(end[0] - start[0]) == piece and end[1] == start[1]:
+        if abs(end[0] - start[0]) <= piece and end[1] == start[1]:
             if start_point[-1] == self._dict[player]["piece"]:
                 return True
 
         # y axis movement
-        elif abs(end[1] - start[1]) == piece and end[0] == start[0]:
+        elif abs(end[1] - start[1]) <= piece and end[0] == start[0]:
             if start_point[-1] == self._dict[player]["piece"]:
                 return True
 
@@ -96,17 +96,13 @@ class FocusGame:
         else:
             return False
 
-    def coord_check(self, start, end):
+    def coord_check(self, coord):
         """
         Helper Function: checks coordinates are valid on board.
         """
-        if start[0] < 0 or start[0] > 5:
+        if coord[0] < 0 or coord[0] > 5:
             return False
-        elif start[1] < 0 or start[1] > 5:
-            return False
-        elif end[0] < 0 or end[0] > 5:
-            return False
-        elif end[1] < 0 or end[1] > 5:
+        elif coord[1] < 0 or coord[1] > 5:
             return False
         else:
             return True
@@ -117,10 +113,10 @@ class FocusGame:
         """
 
         # win condition check
-        if self._win == 1:
+        if self._win:
             return "Game finished"
 
-        if not self.coord_check(start, end):
+        if not self.coord_check(start) or not self.coord_check(end):
             return "invalid coordinates"
 
         # create variables containing long repetitive references to the board
@@ -149,39 +145,43 @@ class FocusGame:
         self._turncounter += 1
 
         if len(end_point) > 5:
-            self.post_move(player, end)
-            if self._dict[player]["captured"] >= 6:
-                self._win = 1
-                return player + " Wins"
+            while len(end_point) > 5:
+                self.post_move(player, end)
+                if self._dict[player]["captured"] >= 6:
+                    self._win = True
+                    return player + " Wins"
+
+        return "Successful Move"
 
     def reserved_move(self, player, location):
         """
-        Method for using pieces in reserve bank to place on board. After conditionals are met and move occurred.
-        Increments turn counter and calls post_move method for victory validation if the.
+        Place pieces in reserve bank to place on board. Increments turn counter
+        and calls post_move method for victory validation.
         """
+
+        if self._win:
+            return "Game finished"
+
+        if not self.coord_check(location):
+            return False
+
+        if self._dict[player]["reserved"] == 0:
+            return "no pieces in reserved"
+
         end_point = self._main_board[location[0]][location[1]]
 
-        if self._win != 1:
+        # decrement player reserve and extends location
+        self._dict[player]["reserved"] -= 1
+        end_point.extend(self._dict[player]["piece"])
+        self.post_move(player, location)
 
-            # checks if player reserved list != 0
-            if self._dict[player]["reserved"] >= 1:
+        self._turncounter += 1
 
-                # decrement player reserve and extends location
-                self._dict[player]["reserved"] -= 1
-                end_point.extend(self._dict[player]["piece"])
-                self.post_move(player, location)
-
-                self._turncounter += 1
-
-                # calls post_move method if pieces > 5 and checks win condition
-                if len(end_point) > 5:
-                    while len(end_point) > 5:
-                        self.post_move(player, location)
-                        if self._dict[player]["captured"] >= 6:
-                            self._win = 1
-                            return player + " Wins"
-                return "successfully moved"
-            else:
-                return "no pieces in reserved"
-        else:
-            return False
+        # calls post_move method if pieces > 5 and checks win condition
+        # place 1 piece on stack: max = 6
+        if len(end_point) > 5:
+            self.post_move(player, location)
+            if self._dict[player]["captured"] >= 6:
+                self._win = 1
+                return player + " Wins"
+        return "successfully moved"
