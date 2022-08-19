@@ -71,6 +71,43 @@ def reserve_move_check(input_list):
     return True
 
 
+def player_turn(game, player):
+    user_input = input("1:Normal Move 2:Reserve Move ")
+
+    if user_input not in ['1', '2']:
+        print("Invalid choice. Try again.")
+        return False
+
+    elif int(user_input) == 1:
+        user_input = input("Enter start, end, and quantity: (0,1) (0,2) 1: ")
+        move = user_input.strip().split(' ')
+        if not move_input_check(move):
+            print("Invalid user input. Try again.")
+            return False
+
+        else:
+            game.move_piece(player, eval(move[0]), eval(move[1]), int(move[2]))
+            print("Successful move")
+            return True
+
+    elif int(user_input) == 2:
+        print("Enter location for reserved move: (0,1)")
+        user_input = input("move: ")
+        move = user_input.strip().split(' ')
+
+        if not reserve_move_check(move):
+            print("Invalid user input. Try again.")
+            return False
+
+        else:
+            game.reserved_move(player, eval(move[0]))
+            print("Successful move")
+            return True
+    else:
+        print("Invalid input. Try again.")
+        return False
+
+
 def main():
     exit_script = False
     print("Welcome to the Domination Focus Game")
@@ -88,7 +125,6 @@ def main():
         # game instance
         while not game_over:
             game.printBoard()
-            # print(player, "turn")
             print(player, "turn: Captured: ", game.show_captured(player), "Reserve: ", game.show_reserve(player))
             reset = False
 
@@ -102,36 +138,8 @@ def main():
 
             # turn instance
             while not turn_over:
-                user_input = input("1:Normal Move 2:Reserve Move ").strip()
-
-                if user_input not in [1, 2]:
-                    print("Invalid choice. Try again.")
-
-                elif int(user_input) == 1:
-                    user_input = input("Enter start, end, and quantity: (0,1) (0,2) 1: ")
-                    move = user_input.strip().split(' ')
-                    if not move_input_check(move):
-                        print("Invalid user input. Try again.")
-
-                    else:
-                        game.move_piece(player, eval(move[0]), eval(move[1]), int(move[2]))
-                        turn_over = True
-                        print("Successful move")
-
-                elif int(user_input) == 2:
-                    print("Enter location for reserved move: (0,1)")
-                    user_input = input("move: ")
-                    move = user_input.strip().split(' ')
-
-                    if not reserve_move_check(move):
-                        print("Invalid user input. Try again.")
-
-                    else:
-                        game.reserved_move(player, eval(move[0]))
-                        turn_over = True
-                        print("Successful move")
-                else:
-                    print("Invalid input. Try again.")
+                if player_turn(game, player):
+                    turn_over = True
 
             # instance exit condition
             if game.show_status():
