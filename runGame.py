@@ -108,6 +108,25 @@ def player_turn(game, player):
         return False
 
 
+def new_game():
+    player1 = input("Enter Player1's Name: ").strip()
+    player2 = input("Enter Player2's Name: ").strip()
+    game = FocusGame((player1, 'R'), (player2, 'G'))
+    print(player1, "is Red and", player2, "is Green.")
+    return game, player1, player2
+
+
+def pre_move(game, player1, player2):
+    if game.show_turn() % 2 != 0:
+        player = player1
+    else:
+        player = player2
+
+    game.printBoard()
+    print(player, "turn: Captured: ", game.show_captured(player), "Reserve: ", game.show_reserve(player))
+    return player, False
+
+
 def main():
     exit_script = False
     print("Welcome to the Domination Focus Game")
@@ -115,26 +134,12 @@ def main():
     # loop for new game
     while not exit_script:
         # initialize game
-        player1 = input("Enter Player1's Name: ").strip()
-        player2 = input("Enter Player2's Name: ").strip()
-        game = FocusGame((player1, 'R'), (player2, 'G'))
+        game, player1, player2 = new_game()
         game_over = False
-        print(player1, "is Red and", player2, "is Green.")
-        player = player1
 
         # game instance
         while not game_over:
-            game.printBoard()
-            print(player, "turn: Captured: ", game.show_captured(player), "Reserve: ", game.show_reserve(player))
-            reset = False
-
-            # player1 turn
-            # take player input and make terminal prompt
-            if game.show_turn() % 2 != 0:
-                player = player1
-            else:
-                player = player2
-            turn_over = False
+            player, turn_over = pre_move(game, player1, player2)
 
             # turn instance
             while not turn_over:
