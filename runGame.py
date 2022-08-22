@@ -72,7 +72,7 @@ def reserve_move_check(input_list):
 
 
 def player_turn(game, player):
-    user_input = input("1:Normal Move 2:Reserve Move ")
+    user_input = input(player + ": 1.Normal Move 2.Reserve Move ")
 
     if user_input not in ['1', '2']:
         print("Invalid choice. Try again.")
@@ -86,9 +86,12 @@ def player_turn(game, player):
             return False
 
         else:
-            game.move_piece(player, eval(move[0]), eval(move[1]), int(move[2]))
-            print("Successful move")
-            return True
+            if game.move_piece(player, eval(move[0]), eval(move[1]), int(move[2])):
+                print("Successful move")
+                return True
+            else:
+                print("Unsuccessful move")
+                return False
 
     elif int(user_input) == 2:
         print("Enter location for reserved move: (0,1)")
@@ -100,9 +103,12 @@ def player_turn(game, player):
             return False
 
         else:
-            game.reserved_move(player, eval(move[0]))
-            print("Successful move")
-            return True
+            if game.reserved_move(player, eval(move[0])):
+                print("Successful move")
+                return True
+            else:
+                print("Unsuccessful move")
+                return False
     else:
         print("Invalid input. Try again.")
         return False
@@ -151,6 +157,7 @@ def main():
                 game_over = True
 
         # post game prompt for user input to start another game or quit
+        print(player, "Wins!")
         user_input = input("Enter 1 for new game or 2 for exit game: ").strip()
         if int(user_input) == 2:
             exit_script = True

@@ -28,6 +28,18 @@ class FocusGame:
         for row in self._main_board:
             print(row)
 
+    def show_turn(self):
+        """
+        Returns turn counter
+        """
+        return self._turncounter
+
+    def show_status(self):
+        """
+        Return game status
+        """
+        return self._win
+
     def show_reserve(self, player):
         """
         returns the player's reserved count.
@@ -118,23 +130,28 @@ class FocusGame:
         """
 
         if self._win:
-            return "Game already over!"
+            # Game already over!
+            return False
 
         if not self.coord_check(start) or not self.coord_check(end):
-            return "invalid start-end coordinates"
+            # invalid start-end coordinates
+            return False
 
         # variables references
         start_point = self._main_board[start[0]][start[1]]
         end_point = self._main_board[end[0]][end[1]]
 
         if not self.player_turn_check(player):
-            return "not your turn"
+            # not your turn
+            return False
 
         if not self.stack_check(start, piece):
-            return "invalid quantity of pieces entered"
+            # invalid quantity of pieces entered
+            return False
 
         if not self.valid_move_check(player, start, end, piece):
-            return "invalid move"
+            # invalid move
+            return False
 
         # temp list hold pieces to move. reverse slice list
         temp_list = start_point[-piece:]
@@ -161,13 +178,15 @@ class FocusGame:
         """
 
         if self._win:
-            return "Game already over!"
+            # Game already over!
+            return False
 
         if not self.coord_check(location):
             return False
 
         if self._dict[player]["reserved"] == 0:
-            return "no pieces in reserved"
+            # no pieces in reserved
+            return False
 
         end_point = self._main_board[location[0]][location[1]]
 
@@ -183,4 +202,4 @@ class FocusGame:
             if self._dict[player]["captured"] >= 6:
                 self._win = 1
                 return player + " Wins"
-        return "Successful reserved move"
+        return "Successful move"
