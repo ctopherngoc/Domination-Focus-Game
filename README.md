@@ -1,7 +1,8 @@
-This Domination Focus Game Project is a game that allows two players to emulate the Domination Focus board game.
+# Domination Focus Game
+</br>This Domination Focus Game Project is a game that allows two players to emulate the Domination Focus board game.
 This implementation of the game with a 6x6 board. The traditional game has 16 extra board space (four on each board side.)
 
-#Prerequisites:
+# Prerequisites:
 </br>Before you begin, ensure you have met the following requirements:
 </br>You have installed the latest version of Python and/or Python IDE such as Pycharm or Atom.
 </br>You have a Windows or Mac machine (have not tried with Linux).
@@ -25,7 +26,7 @@ This implementation of the game with a 6x6 board. The traditional game has 16 ex
 5. Run the following line in the Terminal: python3 runGame.py
 
 
-#Rules: How to Play
+# Rules: How to Play
 </br>When runGame.py starts, you will be greeted with a welcome message and be prompted to enter player1 and player 2 names.
 At the start of each turn, the current board status and the current player's turn and captured/reserves will be displayed.
 The player will be prompted to enter 1. Normal Move or 2. Reserve Move. The rules for the following moves:
@@ -64,5 +65,5 @@ moves until one captures at least six enemy pieces. Once a player wins, the play
 game or close the program.
 
 
-#Contact
+# Contact
 If you want to contact me you can reach me at ctopherngoc@gmail.com.
