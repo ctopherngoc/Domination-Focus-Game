@@ -6,11 +6,11 @@ Prerequisites
 Before you begin, ensure you have met the following requirements:
 
 You have installed the latest version of Python and/or Python IDE such as Pycharm or Atom.
-You have a Windows or Mac machine (have not tried with Linux).
-You have read documentation for this project.
-You have read rule-set/how to play the Domination Focus Game (stated below).
-Installing Domination Focus Game
-To install Domination Focus Game, follow these steps:
+</br>You have a Windows or Mac machine (have not tried with Linux).
+</br>You have read documentation for this project.
+</br>You have read rule-set/how to play the Domination Focus Game (stated below).
+</br>Installing Domination Focus Game
+</br>To install Domination Focus Game, follow these steps:
 
 macOS:
 1. Locate the Terminal app within the LaunchPad or use IDE terminal.
@@ -37,7 +37,7 @@ Normal Move:
 2. Players are allowed to move Up, Down, Left, Right directions (no diagonal)
 3. If board location has a stack (two or more pieces), you are allowed to move up to that many pieces in one move.
 4. In addition, the prior, you are allowed to move up to the amount of spaces based on the amount of peaces being moved.
-   Example: A stack of 4 pieces can move between 1-4 pieces. Of a stack of 5 pieces, 4 can be moved 1-4 spaces.
+   </br>Example: A stack of 4 pieces can move between 1-4 pieces. Of a stack of 5 pieces, 4 can be moved 1-4 spaces.
 
 Reserve Move:
 1. Player must have at least one piece in reserve for successful move.
@@ -50,15 +50,15 @@ and most bottom-right space is (5,5). The following format for each move is:
 
 Normal Move:
 (Starting Location) (Ending Location) # of pieces
-EX: </br>(0,5) (5,5) 5 </br>
-    (0,0) (0,1) 1 </br>
-    (3,2) (1,2) 4
+</br>(0,5) (5,5) 5
+</br>(0,0) (0,1) 1
+</br> (3,2) (1,2) 4
 
 Reserve Move:
 (Board Location)
-EX: </br>(5,5) </br>
-    (4,3) </br>
-    (0,0)
+</br>(5,5)
+</br>(4,3)
+</br>(0,0)
 
 Unsuccessful moves will be displayed and current player will be prompted to re-enter move. Players will take turn making
 moves until one captures at least six enemy pieces. Once a player wins, the players will be prompted to play another 
