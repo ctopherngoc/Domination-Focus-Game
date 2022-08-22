@@ -50,13 +50,13 @@ and most bottom-right space is (5,5). The following format for each move is:
 
 Normal Move:
 (Starting Location) (Ending Location) # of pieces
-EX: (0,5) (5,5) 5 </br>
+EX: </br>(0,5) (5,5) 5 </br>
     (0,0) (0,1) 1 </br>
     (3,2) (1,2) 4
 
 Reserve Move:
 (Board Location)
-EX: (5,5) </br>
+EX: </br>(5,5) </br>
     (4,3) </br>
     (0,0)
 
