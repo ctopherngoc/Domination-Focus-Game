@@ -50,14 +50,14 @@ and most bottom-right space is (5,5). The following format for each move is:
 
 Normal Move:
 (Starting Location) (Ending Location) # of pieces
-EX: (0,5) (5,5) 5
-    (0,0) (0,1) 1
+EX: (0,5) (5,5) 5 </br>
+    (0,0) (0,1) 1 </br>
     (3,2) (1,2) 4
 
 Reserve Move:
 (Board Location)
-EX: (5,5)
-    (4,3)
+EX: (5,5) </br>
+    (4,3) </br>
     (0,0)
 
 Unsuccessful moves will be displayed and current player will be prompted to re-enter move. Players will take turn making
